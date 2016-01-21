@@ -1,0 +1,57 @@
+$('#start-recording ').click(function(e)
+	{
+  		$('#start-recording').hide();
+  		$('#stop-rcording').show();
+  		e.preventDefault();
+  		SC.record(
+  		{
+    		progress: function(ms, avgPeak)
+    		{
+      			self.updateTimer(ms);
+    		}
+  		});
+	});
+
+	$('#stop-recording').click(function(e)
+	{
+  		e.preventDefault();
+  		$('#stop-recording').hide();
+ 		$('#playback').show();
+  		$('#upload').show();
+  		SC.recordStop();
+	});
+
+	$('#playBack').click(function(e)
+	{
+	   	e.preventDefault();
+		updateTimer(0);
+	    SC.recordPlay(
+	    {
+	    	progress: function(ms)
+	    	{
+		         updateTimer(ms);
+        	}
+    	});
+	});
+		
+	$('#upload-recording').click(function(e)
+	{
+    		e.preventDefault();
+    	
+        			SC.recordUpload(
+        			{
+          				track:
+          				{
+            				title: 'My Recording',
+            				sharing: 'private'
+          				}
+        			},function(track)
+        			{
+          				$('.status').html("Uploaded: <a href='" + track.permalink_url + "'>" + track.permalink_url + "</a>");
+        			});
+      	});
+
+  function updateTimer(ms) {
+  // update the timer text. Used when we're recording
+  $('.status').text(SC.Helper.millisecondsToHMS(ms));
+}

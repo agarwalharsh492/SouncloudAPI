@@ -5,7 +5,7 @@
         var self = this;
         this.nextUrl = "";
         this.client_id = '85b4b7b32fc398159064fa035c10a3e0';
-        this.redirect_uri = 'http://agarwalharsh492.github.io/callback.html';
+        this.redirect_uri = 'http://127.0.0.1:8000/callback.html';
         this.model.initialize(this.client_id, this.redirect_uri);
         this.view.bind("signin", function() {
             self.model.authorization(function(user) {
